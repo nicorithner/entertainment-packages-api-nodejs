@@ -1,0 +1,9 @@
+{
+  "name": "node-express-api-2023",
+  "version": "1.0.0",
+  "description": "CRUD API",
+  "main": "server.js",
+  "repository": "https://github.com/Coding-Gymnasium/node-express-api-2023",
+  "author": "Nico",
+  "license": "MIT"
+}

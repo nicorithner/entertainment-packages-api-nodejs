@@ -45,6 +45,10 @@ app.use(cors(corsOptions));
 app.use(morgan("dev"));
 
 // routes
+const packageRoutes = require("./routes/api/v1/package.routes");
+
+packageRoutes(app);
+
 app.get("/", async (_req, res) => {
   try {
     await sequelize.authenticate();

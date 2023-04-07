@@ -47,9 +47,11 @@ app.use(morgan("dev"));
 // routes
 const packageRoutes = require("./routes/api/v1/package.routes");
 const networkRoutes = require("./routes/api/v1/network.routes");
+const showRoutes = require("./routes/api/v1/show.routes");
 
 packageRoutes(app);
 networkRoutes(app);
+showRoutes(app);
 
 app.get("/", async (_req, res) => {
   try {

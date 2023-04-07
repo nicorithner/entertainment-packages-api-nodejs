@@ -4,7 +4,9 @@
   "description": "CRUD API",
   "main": "./app/server.js",
   "scripts": {
-    "start": "node ./app/server.js --watch"
+    "start": "node ./app/server.js --watch",
+    "migrate:up": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo"
   },
   "repository": "https://github.com/Coding-Gymnasium/node-express-api-2023",
   "author": "Nico Rithner",

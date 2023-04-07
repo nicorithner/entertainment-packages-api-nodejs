@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       imdb_rating: DataTypes.FLOAT,
+      network_id: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -54,13 +54,10 @@ db.show = require("./show.js")(sequelize, Sequelize);
 db.packageNetwork = require("./packageNetwork.js")(sequelize, Sequelize);
 
 // -- Show
-db.show.belongsTo(db.network, {
-  foreignKey: "network_id",
-  as: "network",
-});
+db.show.belongsTo(db.network);
 
 // -- Network
-db.network.hasMany(db.show, { as: "shows" });
+db.network.hasMany(db.show);
 db.network.belongsToMany(db.package, {
   through: db.packageNetwork,
   foreignKey: "network_id",

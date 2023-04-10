@@ -2,18 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("packageNetworks", {
+    await queryInterface.createTable("PackageNetworks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      network_id: {
+      NetworkId: {
         type: Sequelize.INTEGER,
         foreignKey: true,
       },
-      package_id: {
+      PackageId: {
         type: Sequelize.INTEGER,
         foreignKey: true,
       },
@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("packageNetworks");
+    await queryInterface.dropTable("PackageNetworks");
   },
 };

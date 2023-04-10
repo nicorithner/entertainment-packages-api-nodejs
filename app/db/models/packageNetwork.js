@@ -2,12 +2,12 @@ module.exports = (sequelize, DataTypes) => {
   const PackageNetwork = sequelize.define(
     "PackageNetwork",
     {
-      network_id: DataTypes.INTEGER,
-      package_id: DataTypes.INTEGER,
+      NetworkId: DataTypes.INTEGER,
+      PackageId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "PackageNetworks",
+      modelName: "PackageNetwork",
     }
   );
   return PackageNetwork;

@@ -1,7 +1,7 @@
 const db = require("../db/models");
-const Package = db.Package;
+const Package = db.package;
+const Network = db.network;
 const Op = db.Sequelize.Op;
-
 // Create and Save a new Package
 exports.create = (req, res) => {
   if (!req.body.name) {
@@ -46,27 +46,26 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Package with an id
-exports.findOne = (req, res) => {
+// Find a single Package with an id. Includes networks
+exports.findOne = async (req, res) => {
   const id = req.params.id;
 
-  Package.findByPk(id)
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find package with id=${id}`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          `Something went wrong while retrieving package with id=${id}`,
-      });
+  try {
+    const package = await Package.findOne({
+      where: { id: id },
+      include: Network,
     });
+
+    if (!package) {
+      throw new Error(`Couldn't find package id ${id}`);
+    }
+
+    res.send(package);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || `Something went wrong while retrieving package with id=${id}`,
+    });
+  }
 };
 
 // Update a Package by the id in the request

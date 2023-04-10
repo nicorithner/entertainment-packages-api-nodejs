@@ -15,9 +15,9 @@ module.exports = {
       imdb_rating: {
         type: Sequelize.FLOAT
       },
-      network_id: {
+      NetworkId: {
         type: Sequelize.INTEGER,
-        foreignKey: true,
+        foreignKey: true
       },
       createdAt: {
         allowNull: false,

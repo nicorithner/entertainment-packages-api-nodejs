@@ -58,15 +58,9 @@ db.show.belongsTo(db.network);
 
 // -- Network
 db.network.hasMany(db.show);
-db.network.belongsToMany(db.package, {
-  through: db.packageNetwork,
-  foreignKey: "network_id",
-});
+db.network.belongsToMany(db.package, { through: db.packageNetwork });
 
 // -- Package
-db.package.belongsToMany(db.network, {
-  through: db.packageNetwork,
-  foreignKey: "package_id",
-});
+db.package.belongsToMany(db.network, { through: db.packageNetwork });
 
 module.exports = db;

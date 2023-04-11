@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Show.init({
     title: DataTypes.STRING,
-    imdb_rating: DataTypes.FLOAT
+    imdb_rating: DataTypes.FLOAT,
+    NetworkId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Show',

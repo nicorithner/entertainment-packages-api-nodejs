@@ -1,5 +1,8 @@
 const db = require("../db/models");
-const Show = db.Show;
+const Show = db.show;
+const Network = db.network;
+const Package = db.package;
+const PackageNetwork = db.packageNetwork;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Show
@@ -14,6 +17,7 @@ exports.create = (req, res) => {
   const show = {
     title: req.body.title,
     imdb_rating: req.body.imdb_rating,
+    NetworkId: req.body.NetworkId,
   };
 
   Show.create(show)
@@ -30,20 +34,73 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Shows from the database.
-exports.findAll = (req, res) => {
-  Show.findAll({
-    where: {},
-    truncate: false,
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Something went wrong while retrieving shows",
-      });
-    });
+exports.findAll = async (req, res) => {
+  let query_network_id = req.query.network_id || null;
+  let package_id = req.query.package_id || null;
+
+  console.log("network_id: ", query_network_id);
+  console.log("packageId: ", package_id);
+
+  switch (true) {
+    case query_network_id != null:
+      Show.findAll({
+        where: { NetworkId: query_network_id },
+        truncate: false,
+      })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Something went wrong while retrieving shows",
+          });
+        });
+      break;
+
+    case package_id != null:
+      // 1. get networks associated to the given package id.
+      try {
+        const package = await Package.findOne({
+          where: { id: package_id },
+          include: Network,
+        });
+        const networks = package["Networks"];
+        if (networks.length === 0) {
+          throw new Error(`Couldn't find any networks in this package`);
+        }
+
+        // 2. get shows for those networks
+        const shows = [];
+        for (const network of networks) {
+          let networkShows = await Show.findAll({
+            where: { NetworkId: network.id },
+          });
+          shows.push(...networkShows);
+        }
+        if (shows.length === 0) {
+          throw new Error(`Couldn't find any shows in this network`);
+        }
+        res.send(shows);
+      } catch (err) {
+        res.status(500).send({
+          message: err.message || "Something went wrong while retrieving shows",
+        });
+      }
+      break;
+    default:
+      Show.findAll({ where: {}, truncate: false })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Something went wrong while retrieving shows",
+          });
+        });
+      break;
+  }
 };
 
 // Find a single Show with an id
@@ -132,8 +189,7 @@ exports.deleteAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all shows.",
+        message: err.message || "Some error occurred while removing all shows.",
       });
     });
 };

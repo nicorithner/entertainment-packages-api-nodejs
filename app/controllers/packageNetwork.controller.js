@@ -1,22 +1,20 @@
 const db = require("../db/models");
-const Package = db.package;
-const Network = db.network;
+const PackageNetwork = db.packageNetwork;
 const Op = db.Sequelize.Op;
 // Create and Save a new Package
 exports.create = (req, res) => {
-  if (!req.body.name) {
+  if (!req.body.NetworkId && !req.body.PackageId) {
     res.status(400).send({
-      message: "Content can not be empty",
+      message: "Must include a network and a package id",
     });
     return;
   }
-
-  const package = {
-    name: req.body.name,
-    price: req.body.price,
+  const package_network = {
+    NetworkId: req.body.NetworkId,
+    PackageId: req.body.PackageId,
   };
 
-  Package.create(package)
+  PackageNetwork.create(package_network)
     .then((data) => {
       res.send(data);
     })
@@ -24,14 +22,14 @@ exports.create = (req, res) => {
       res.status(500).send({
         message:
           err.message ||
-          `Something went wrong while creating package ${data.name}`,
+          `Something went wrong while creating packageNetwork ${data.name}`,
       });
     });
 };
 
 // Retrieve all Packages from the database.
 exports.findAll = (req, res) => {
-  Package.findAll({
+  PackageNetwork.findAll({
     where: {},
     truncate: false,
   })
@@ -41,7 +39,7 @@ exports.findAll = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Something went wrong while retrieving packages",
+          err.message || "Something went wrong while retrieving packageNetworks",
       });
     });
 };
@@ -51,19 +49,18 @@ exports.findOne = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const package = await Package.findOne({
-      where: { id: id },
-      include: Network,
+    const package_network = await PackageNetwork.findOne({
+      where: { id: id }
     });
 
-    if (!package) {
-      throw new Error(`Couldn't find package id ${id}`);
+    if (!package_network) {
+      throw new Error(`Couldn't find packageNetwork id ${id}`);
     }
 
-    res.send(package);
+    res.send(package_network);
   } catch (err) {
     res.status(500).send({
-      message: err.message || `Something went wrong while retrieving package with id=${id}`,
+      message: err.message || `Something went wrong while retrieving packageNetwork with id=${id}`,
     });
   }
 };
@@ -72,17 +69,17 @@ exports.findOne = async (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Package.update(req.body, {
+  PackageNetwork.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Package was updated successfully.",
+          message: "PackageNetwork was updated successfully.",
         });
       } else {
         res.send({
-          message: `Couldn't update package with id=${id}`,
+          message: `Couldn't update packageNetwork with id=${id}`,
         });
       }
     })
@@ -90,7 +87,7 @@ exports.update = (req, res) => {
       res.status(500).send({
         message:
           err.message ||
-          `Something went wrong while updating package with id=${id}`,
+          `Something went wrong while updating packageNetwork with id=${id}`,
       });
     });
 };
@@ -99,40 +96,40 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Package.destroy({
+  PackageNetwork.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Package was deleted successfully!",
+          message: "PackageNetwork was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Couldn't delete package with id=${id}`,
+          message: `Couldn't delete packageNetwork with id=${id}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || `Couldn't detele package with id=${id}`,
+        message: err.message || `Couldn't detele packageNetwork with id=${id}`,
       });
     });
 };
 
 // Delete all Packages from the database.
 exports.deleteAll = (req, res) => {
-  Package.destroy({
+  PackageNetwork.destroy({
     where: {},
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} Packages were deleted successfully!` });
+      res.send({ message: `${nums} PackageNetwork were deleted successfully!` });
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all packages.",
+          err.message || "Some error occurred while removing all packageNetwork.",
       });
     });
 };

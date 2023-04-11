@@ -21,13 +21,13 @@ const app = express();
 
 // db
 const db = require("./db/models");
-//db.sequelize.sync(); // commented while using force: true to reset every time.
+db.sequelize.sync(); // commented while using force: true to reset every time.
 
 // In development, you may need to drop existing tables and re-sync database.
 // Just use force: true as following code:
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 
 //--- middlewares
 // parse requests of content-type - application/json
@@ -48,10 +48,12 @@ app.use(morgan("dev"));
 const packageRoutes = require("./routes/api/v1/package.routes");
 const networkRoutes = require("./routes/api/v1/network.routes");
 const showRoutes = require("./routes/api/v1/show.routes");
+const packageNetworkRoutes = require("./routes/api/v1/packageNetwork.routes");
 
 packageRoutes(app);
 networkRoutes(app);
 showRoutes(app);
+packageNetworkRoutes(app);
 
 app.get("/", async (_req, res) => {
   try {

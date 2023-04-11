@@ -59,35 +59,34 @@ exports.findAll = async (req, res) => {
       break;
 
     case package_id != null:
-      // Goal: Get shows filtered by package
-      // package has many networks and networks have shows
-      // packages are linked to networks via packageNetwork.
-      // -----------------------
       // 1. get networks associated to the given package id.
-      // const networks = await Network.findAll({
-      //   include: {
-      //     model: PackageNetwork,
-      //     include: Package,
-      //     where: {
-      //       // PackageNetwork.package_id = package_id
-      //       PackageId: package_id
-      //     },
-      //   },
-      // });
-      console.log('shows: ', JSON.stringify(networks, null, 2));
-      // -----------------------
-      // 2. get shows for those networks
-      Show.findAll({ where: {}, turncate: false })
-        .then((data) => {
-          res.send(data);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message:
-              err.message || "Something went wrong while retrieving shows",
-          });
+      try {
+        const package = await Package.findOne({
+          where: { id: package_id },
+          include: Network,
         });
+        const networks = package["Networks"];
+        if (networks.length === 0) {
+          throw new Error(`Couldn't find any networks in this package`);
+        }
 
+        // 2. get shows for those networks
+        const shows = [];
+        for (const network of networks) {
+          let networkShows = await Show.findAll({
+            where: { NetworkId: network.id },
+          });
+          shows.push(...networkShows);
+        }
+        if (shows.length === 0) {
+          throw new Error(`Couldn't find any shows in this network`);
+        }
+        res.send(shows);
+      } catch (err) {
+        res.status(500).send({
+          message: err.message || "Something went wrong while retrieving shows",
+        });
+      }
       break;
     default:
       Show.findAll({ where: {}, truncate: false })

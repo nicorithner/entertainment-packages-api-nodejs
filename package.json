@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./app/server.js --watch",
     "migrate:up": "npx sequelize-cli db:migrate",
-    "migrate:undo": "npx sequelize-cli db:migrate:undo"
+    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "seed:all": "npx sequelize-cli db:seed:all",
+    "seed:undo:all": "npx sequelize-cli db:seed:undo:all"
   },
   "repository": "https://github.com/Coding-Gymnasium/node-express-api-2023",
   "author": "Nico Rithner",

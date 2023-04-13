@@ -8,7 +8,8 @@
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "seed:all": "npx sequelize-cli db:seed:all",
-    "seed:undo:all": "npx sequelize-cli db:seed:undo:all"
+    "seed:undo:all": "npx sequelize-cli db:seed:undo:all",
+    "seed-in-order": "node ./app/db/seeders/helpers/seedInOrder.js"
   },
   "repository": "https://github.com/Coding-Gymnasium/node-express-api-2023",
   "author": "Nico Rithner",

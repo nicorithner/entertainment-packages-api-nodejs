@@ -54,13 +54,19 @@ db.show = require("./show.js")(sequelize, Sequelize);
 db.packageNetwork = require("./packageNetwork.js")(sequelize, Sequelize);
 
 // -- Show
-db.show.belongsTo(db.network);
+db.show.belongsTo(db.network, { constraints: false });
 
 // -- Network
 db.network.hasMany(db.show);
-db.network.belongsToMany(db.package, { through: db.packageNetwork });
+db.network.belongsToMany(db.package, {
+  through: db.packageNetwork,
+  constraints: false,
+});
 
 // -- Package
-db.package.belongsToMany(db.network, { through: db.packageNetwork });
+db.package.belongsToMany(db.network, {
+  through: db.packageNetwork,
+  constraints: false,
+});
 
 module.exports = db;

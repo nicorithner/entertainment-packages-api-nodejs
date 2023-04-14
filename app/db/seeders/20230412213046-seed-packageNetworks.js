@@ -25,13 +25,6 @@ async function getPackageNetworks() {
     packageIds[package.name] = package.id;
   }
 
-  // get networks in a package
-  // for (const package of packagesJSON) {
-  //   packageAndNetworks[package.name] = {
-  //     id: packageIds[package.name],
-  //     networks: package.networks.map((net) => networkIds[net]),
-  //   };
-  // }
   for (const package of packagesJSON) {
     packageAndNetworks.push(
       ...package.networks.map((net) => [
@@ -43,13 +36,16 @@ async function getPackageNetworks() {
 
   // ---- Create packageNetworks
 
+  let count = 1;
   for (const pair of packageAndNetworks) {
     packageNetworksObjects.push({
+      id: count,
       NetworkId: pair[0],
       PackageId: pair[1],
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+    count += 1;
   }
   return packageNetworksObjects;
 }

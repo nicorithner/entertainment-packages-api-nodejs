@@ -58,11 +58,11 @@ A 'show' belongs to a newtork only so there is a reference to network in 'show' 
 1. Clone this repo `git clone git@github.com:Coding-Gymnasium/node-express-api-2023.git`
 1. Cd to project and run `yarn install`
 1. Set psql user:
-    ```bash
-        $ psql
-        <default-user>=# CREATE USER postgres WITH PASSWORD "postgres";
-        <default-user>=# GRANT ALL PRIVILEGES ON DATABASE node_express_api_dev TO postgres; 
-    ```
+   ```bash
+       $ psql
+       <default-user>=# CREATE USER postgres WITH PASSWORD "postgres";
+       <default-user>=# GRANT ALL PRIVILEGES ON DATABASE node_express_api_dev TO postgres;
+   ```
 1. Create database `npx sequelize-cli db:create`
 1. Migrate tables `yarn migrate:up`
 1. Seed tables. Note: because of the associations the tables need to be seed in order. Please use the following command:
@@ -77,8 +77,28 @@ A 'show' belongs to a newtork only so there is a reference to network in 'show' 
 
 ### Sample Endpoints
 
+#### View All Packages
+
 <div align="center">
     <img src="./package-api-example-one.png" alt="Image of api call using Postman" />
+</div>
+
+#### View Shows by Package
+
+<div align="center">
+    <img src="./shows-by-package.png" alt="Image of api call using Postman" />
+</div>
+
+#### View Shows by Package
+
+<div align="center">
+    <img src="./shows-by-network.png" alt="Image of api call using Postman" />
+</div>
+
+#### View Networks by Package
+
+<div align="center">
+    <img src="./package-by-id-shows-assoc-networks.png" alt="Image of api call using Postman" />
 </div>
 
 #### Packages
@@ -100,6 +120,8 @@ GET ➡️ `http://localhost:8000/api/v1/packages/`
 ##### Get Package by ID
 
 GET ➡️ `http://localhost:8000/api/v1/packages/1`
+
+- Displays Networks associated with package
 
 ##### Update Package by ID
 
@@ -181,6 +203,14 @@ POST ➡️ `http://localhost:8000/api/v1/shows/`
 ##### Get All Shows
 
 GET ➡️ `http://localhost:8000/api/v1/shows/`
+
+##### Get Associated Shows by Package Id
+
+GET ➡️ `http://localhost:8000/api/v1/shows?package_id=1`
+
+##### Get Associated Shows by Networks Id
+
+GET ➡️ `http://localhost:8000/api/v1/shows?network_id=2`
 
 ##### Get Show by ID
 

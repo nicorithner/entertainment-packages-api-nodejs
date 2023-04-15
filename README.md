@@ -2,6 +2,11 @@
 
 ## Charter/Spectrum Back-End Code Challenge
 
+### Author: Nico Rithner 
+ - Github: [github.com/nicorithner](https://github.com/nicorithner)
+ - LinkedIn: [linkedin.com/in/nicorithner/](https://www.linkedin.com/in/nicorithner/)
+ - E-mail: nicorithner@gmail.com
+
 ## Summary
 
 Create a REST API using Node.js and PostgreSQL. Seed the database from the data provided and expose REST APIs with some specific filtering requirements.

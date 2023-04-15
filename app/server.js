@@ -52,11 +52,13 @@ const packageRoutes = require("./routes/api/v1/package.routes");
 const networkRoutes = require("./routes/api/v1/network.routes");
 const showRoutes = require("./routes/api/v1/show.routes");
 const packageNetworkRoutes = require("./routes/api/v1/packageNetwork.routes");
+const swaggerRoute = require("../swagger.js");
 
 packageRoutes(app);
 networkRoutes(app);
 showRoutes(app);
 packageNetworkRoutes(app);
+swaggerRoute(app);
 
 app.get("/", async (_req, res) => {
   try {

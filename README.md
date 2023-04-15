@@ -6,6 +6,17 @@
 
 Create a REST API using Node.js and PostgreSQL. Seed the database from the data provided and expose REST APIs with some specific filtering requirements.
 
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Stack](#stack)
+- [Schema](#schema)
+- [Installation](#installation)
+- [Endpoints](#endpoints)
+  * [Postman](#postman)
+  * [List of Endpoints](#list-of-endpoints)
+  * [Swagger UI](#swagger-ui)
+
 ## Requirements
 
 - REST API using Node / Express API with PostgreSQL Database
@@ -22,7 +33,7 @@ Create a REST API using Node.js and PostgreSQL. Seed the database from the data 
 
 - GET Package by ID should also provide all Networks included in that Package (ex: /packages/:id)
 
-## Technology Stack
+## Stack
 
 - NodeJS
 - ExpressJS
@@ -48,7 +59,7 @@ A 'show' belongs to a newtork only so there is a reference to network in 'show' 
 
 <div align="center">
 
-<img src='./schema.png' alt='Database schema' />
+<img src='./assets/schema.png' alt='Database schema' />
 
 </div>
 
@@ -69,37 +80,43 @@ A 'show' belongs to a newtork only so there is a reference to network in 'show' 
    `yarn seed-in-order`
 1. Run project `yarn start`
 
-## Visit Endpoints
+## Endpoints
 
-### Using postman try the following endpoints
+### Postman
+
+#### Using Postman try the following endpoints
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12873084-4e6e2d03-a872-42e8-9917-240cce764279?action=collection%2Ffork&collection-url=entityId%3D12873084-4e6e2d03-a872-42e8-9917-240cce764279%26entityType%3Dcollection%26workspaceId%3D6447471c-b7e7-4b44-b57f-195ae31e6b00)
 
-### Sample Endpoints
+#### Sample Endpoints
 
-#### View All Packages
-
-<div align="center">
-    <img src="./package-api-example-one.png" alt="Image of api call using Postman" />
-</div>
-
-#### View Shows by Package
+##### View All Packages
 
 <div align="center">
-    <img src="./shows-by-package.png" alt="Image of api call using Postman" />
+    <img src="./assets/package-api-example-one.png" alt="Image of api call using Postman" />
 </div>
 
-#### View Shows by Package
+##### View Shows by Package
 
 <div align="center">
-    <img src="./shows-by-network.png" alt="Image of api call using Postman" />
+    <img src="./assets/shows-by-package.png" alt="Image of api call using Postman" />
 </div>
 
-#### View Networks by Package
+##### View Shows by Package
 
 <div align="center">
-    <img src="./package-by-id-shows-assoc-networks.png" alt="Image of api call using Postman" />
+    <img src="./assets/shows-by-network.png" alt="Image of api call using Postman" />
 </div>
+
+##### View Networks by Package
+
+<div align="center">
+    <img src="./assets/package-by-id-shows-assoc-networks.png" alt="Image of api call using Postman" />
+</div>
+
+### List of Endpoints
+
+<hr />
 
 #### Packages
 
@@ -286,3 +303,15 @@ DELETE ➡️ `http://localhost:8000/api/v1/packageNetworks/1`
 DELETE ➡️ `http://localhost:8000/api/v1/packageNetworks`
 
 <hr />
+
+### Swagger UI
+
+To use the swagger ui please navigate to:
+
+`http://localhost:8000/api-docs`
+
+<div align="center">
+
+  <img src="./assets/swagger-screenshot.png" alt="Screenshot of app's swagger ui" />
+
+</div>

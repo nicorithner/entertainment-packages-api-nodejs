@@ -27,8 +27,6 @@ module.exports = (app) => {
    *       example:
    *         id: 1
    *         name: CBS
-   *         createdAt: 2023-04-15T03:17:31.601Z
-   *         updatedAt: 2023-04-15T03:17:31.601Z
    */
 
   /**

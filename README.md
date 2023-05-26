@@ -1,6 +1,6 @@
 # NodeJS PostgreSQL API
 
-## Charter/Spectrum Back-End Code Challenge
+## Entertainment Packages API Exercise
 
 ### Author: Nico Rithner 
  - Github: [github.com/nicorithner](https://github.com/nicorithner)
@@ -9,7 +9,7 @@
 
 ## Summary
 
-Create a REST API using Node.js and PostgreSQL. Seed the database from the data provided and expose REST APIs with some specific filtering requirements.
+Create a REST API using Node.js and PostgreSQL. Seed the database from the data provided as JSON and expose REST APIs with some specific filtering requirements.
 
 ## Table of Contents
 

@@ -5,7 +5,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Charter-Spectrum Entertainment API",
+      title: "Entertainment Packages API 2023",
       version: "1.0.0",
       description:
         "This API serves endpoints to entertainment packages with their networks and shows",
